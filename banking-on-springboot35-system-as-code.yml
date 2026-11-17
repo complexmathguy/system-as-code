@@ -1,0 +1,151 @@
+# -------------------------------------------------------------
+# Standard System-as-Code file.
+#
+# Pay close attention to parameters that require values unique  
+# to you, such as those for Git, Docker, and AWS.
+#
+# To use Git, Docker, and any provider, be sure to have created
+# an account with each.  
+#
+# For Git, before generating the project be sure to create the 
+# repository.
+# -------------------------------------------------------------
+
+system:
+    name: Core Banking System - v1.90
+
+    description: Core banking system on Spring Boot 3.5 using MySQL 8
+
+    blueprint:
+        name:             Spring Boot 3.5
+        features:         aws,docker,terraform
+
+    model:
+        name:             Banking
+
+    # ------------------------------------------------------------
+    # Docker parameters
+    # ------------------------------------------------------------
+
+    docker:
+        inUse:        true
+        username:     tylertravismya
+        password:     69Cutlass
+        orgName:      theharbormaster
+        repository:   banking-on-spring-boot-3-5
+        tag:          latest
+        host:         docker.io
+
+    # ------------------------------------------------------------
+    # Git repository parameters
+    # - password is a Git token.  This data is never stored
+    # ------------------------------------------------------------
+
+    git:
+        inUse:          true
+        name:           git_test_spring-boot
+        host:           https://github.com
+        owner:          Harbormaster-AI
+        repository:     aws-deploy-test
+        password:       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
+        tag:            latest
+
+
+# ------------------------------------------------------------
+# System options influence the generative output and possible
+# features of the resulting system.  Understand the purpose
+# and intent of each.
+# ------------------------------------------------------------
+    options:
+
+# ------------------------------------------------------------
+# Application parameters
+# ------------------------------------------------------------
+    
+        application:
+            name:                  bankingBackend   # DO NOT USE SPACES, UNDERSCORES, OR HYPHENS
+            description:           Banking Restful Backend
+            author:                Harbormaster Dev Team
+            email:                 xxxx.xxxxxxxxx@xxxxxxxx.com
+            companyName:          Turnstone National Bank
+            version:               0.0.1
+
+        # ------------------------------------------------------------
+        # Spring Boot properties
+        # ------------------------------------------------------------
+
+        spring:
+            server-port:                8080
+            entity-store-type:          mysql       # options - h2, mysql, postgres, mongodb
+            entity-store-url:           jdbc:mysql://localhost:3306/banking-on-spring-boot
+            database-username:          root
+            database-password:
+            spring-profiles-active:
+            authentication-mode:        none        # options - form-login, jwt, oauth2, none
+            logging-type:               logstash    # options - logstash, gelf, ecs
+            enable-async:               true        # ignored
+            enable-entity-auditing:     true
+            enable-service-level-monitoring: true
+
+        # ------------------------------------------------------------
+        # CI/CD parameters
+        # ------------------------------------------------------------
+   #     cicd:
+   #         platform: circlci      # options - codeship, circleci, jfrog.pipelines, jenkins, azure, aws, gitlab, bitbucket, github
+
+        # ------------------------------------------------------------
+        # Google Cloud properties
+        # ------------------------------------------------------------
+        google:
+            inUse:              true
+            userName:           no-name
+            password:           no-password
+            accessToken:        no-access-token
+            project:            project-name
+            region:             us-central1     # asia-east1,asia-east2,asia-northeast1,asia-northeast2,asia-south1,asia-southeast1,australia-southeast1,europe-north1,europe-west1,europe-west2,europe-west3,europe-west4,europe-west6,northamerica-northeast1,southamerica-east1,us-central1,us-east1,us-east4,us-west1,us-west2
+            zone:               a               # a,b,c,d,f
+
+        # ------------------------------------------------------------
+        # AWS properties
+        # ------------------------------------------------------------
+        aws:
+            inUse:              true
+            accessKey:
+            secretKey:
+            vpc:
+            region:             us-east-2
+            ec2InstanceType:    t2.medium
+            dbInstanceType:     db.t3.medium
+            amiImageId:
+
+        # ------------------------------------------------------------
+        # Terraform properties
+        # ------------------------------------------------------------
+        terraform:
+            inUse:             true
+            dbUsername:        no_user_name
+            dbPassword:        no_password
+            dbEngine:          mysql   # options - mysql, mongo, postgres
+            dbVersion:         # leave blank to apply vendor default
+            dbPort:            3306
+            appPort:           8080
+            provider:          aws
+
+        # ------------------------------------------------------------
+        # K8 properties
+        # ------------------------------------------------------------
+
+        kubernetes:
+            inUse:             true
+            host:
+            provider:          rosa         # options (k8 provider) aws, google, azure, rosa (redhat openshift) - leave blank and use host to use an existing k8 host
+            serviceType:       LoadBalancer
+
+        # ------------------------------------------------------------
+        # Opentelemetry properties -
+        # ------------------------------------------------------------
+
+        opentelemetry:
+            inUse:              true # set enable-service-level-monitoring=true in the spring section
+            provider:           prometheus  # options : prometheus, datadog, sumologic
+            consumerEndpoint:   # examples: http://prometheus:9090, https://api.datadoghq.com, https://<sumo-otlp-endpoint>
